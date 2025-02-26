@@ -15,13 +15,12 @@ function Navbar() {
   const navItems = [
     { path: "/", link: "Home" },
     { path: "/about", link: "About" },
-    { path: "/blogs", link: "Blogs" },
     { path: "/addblog", link: "Add Blog" },
     { path: "/contact", link: "Contact" },
   ];
 
   return (
-    <header className="bg-slate-800 fixed top-[-2] left-0 right-0 text-white">
+    <header className="bg-slate-800  top-[-2] left-0 right-0 text-white">
       <nav className="py-4 px-4 max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <div>
@@ -57,7 +56,7 @@ function Navbar() {
           <a href="/" className="text-blue-400">
             <FaFacebook />
           </a>
-          <a href="/" className="text-black">
+          <a href="/" className="text-white">
             <FaXTwitter />
           </a>
           <a href="/" className="text-green-600">
