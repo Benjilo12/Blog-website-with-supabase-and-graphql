@@ -2,10 +2,14 @@ import { useSearchParams } from "react-router";
 import BlogCard from "../component/BlogCard";
 import Filter from "../component/Filter";
 import { useBlog } from "../services/useBlog";
+import SideBar from "../component/SideBar";
+import Pagination, { PAGE_SIZE } from "../component/Pagination";
 
 function Blogs() {
-  const { isPending, blogs, error } = useBlog();
   const [searchParams] = useSearchParams();
+  const page = searchParams.get("page") || 1;
+
+  const { isPending, blogs, error, count } = useBlog(page, PAGE_SIZE); // Pass the page to useBlog
 
   if (isPending)
     return (
@@ -29,7 +33,11 @@ function Blogs() {
   return (
     <div className="my-20 text-black">
       <Filter />
-      <BlogCard blogs={filteredBlogs} />
+      <div className="flex flex-col lg:flex-row gap-15">
+        <BlogCard blogs={filteredBlogs} />
+        <SideBar />
+      </div>
+      <Pagination count={count} />
     </div>
   );
 }

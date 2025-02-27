@@ -7,7 +7,7 @@ function Filter() {
     setSearchParams(searchParams);
   }
   return (
-    <div className="flex justify-center gap-15 mb-20 flex-wrap text-2xl">
+    <div className="flex justify-center gap-15 mb-20 flex-wrap md:text-2xl  text-base">
       <button
         className="cursor-pointer border-1 py-1 px-4 active:bg-black active:text-white text-black  font-bold rounded border-none"
         onClick={() => handleClick("all")}

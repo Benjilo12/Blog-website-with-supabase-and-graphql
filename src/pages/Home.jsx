@@ -1,4 +1,5 @@
 import Hero from "../component/Hero";
+
 import Blogs from "./Blogs";
 
 function Home() {
