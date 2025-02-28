@@ -15,7 +15,7 @@ function SideBar() {
   return (
     <div className="mr-5">
       <div>
-        <h3 className="text-2xl font-semibold ml-30 md:ml-10  mb-5 ">
+        <h3 className="text-2xl font-semibold ml-30 md:ml-17  mb-5 ">
           Latest post
         </h3>
       </div>

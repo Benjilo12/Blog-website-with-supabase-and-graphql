@@ -4,7 +4,7 @@ import Blogs from "./Blogs";
 
 function Home() {
   return (
-    <div>
+    <div className="overflow-hidden">
       <Hero />
       <Blogs />
     </div>

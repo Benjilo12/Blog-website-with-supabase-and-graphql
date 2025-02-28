@@ -29,8 +29,8 @@ function Pagination({ count }) {
   if (pageCount <= 1) return null;
 
   return (
-    <div className="w-screen flex items-center justify-between gap-[0.7rem] mt-10">
-      <p className="md:ml-28">
+    <div className="w-screen flex items-center justify-between gap-0 md:gap-[0.7rem] mt-14 mx-auto">
+      <p className="ml-6 md:ml-27">
         Showing{" "}
         <span style={{ fontWeight: 700 }}>
           {(currentPage - 1) * PAGE_SIZE + 1}{" "}
@@ -43,7 +43,7 @@ function Pagination({ count }) {
         <span style={{ fontWeight: 700 }}> {count}</span> results
       </p>
 
-      <div className="flex gap-[2.6rem] md:mr-[35rem] font-bold">
+      <div className="flex gap-[2.6rem] md:mr-[35rem] font-bold mr-8">
         <button
           className="active:bg-blue"
           onClick={prevPage}

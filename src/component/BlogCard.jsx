@@ -28,7 +28,7 @@ function BlogCard({ blogs }) {
             <img
               src={blog.image}
               alt={blog.title} // Use dynamic alt text for accessibility
-              className="w-[400px] h-[350px] object-cover rounded"
+              className="md:w-[400px] w-full h-[350px] object-cover rounded"
             />
           </div>
 

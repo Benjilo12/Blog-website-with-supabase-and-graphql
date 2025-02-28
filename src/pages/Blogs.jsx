@@ -33,7 +33,7 @@ function Blogs() {
   return (
     <div className="my-20 text-black">
       <Filter />
-      <div className="flex flex-col lg:flex-row gap-15">
+      <div className="flex flex-col lg:flex-row gap-5">
         <BlogCard blogs={filteredBlogs} />
         <SideBar />
       </div>
