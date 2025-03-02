@@ -17,6 +17,23 @@ export async function getBlogs(page = 1, pageSize = 9) {
   return { data, count };
 }
 
+//blog id
+export async function getBlogById(id) {
+  const { data, error } = await supabase
+    .from("blogs")
+    .select("*")
+    .eq("id", id)
+    .single(); // Ensures only one blog is returned
+
+  if (error) {
+    console.error(error);
+    throw new Error("Blog not found");
+  }
+
+  return data;
+}
+
+//latest blog
 export const fetchLatestBlog = async () => {
   const { data, error } = await supabase
     .from("blogs")
