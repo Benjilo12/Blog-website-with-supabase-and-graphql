@@ -41,7 +41,7 @@ function BlogDetails() {
   const readingTime = calculateReadingTime(blog.content);
 
   return (
-    <div className="max-w-7xl mx-auto my-12 flex flex-col md:flex-row gap-12">
+    <div className="max-w-[100rem] mx-auto my-12 flex flex-col md:flex-row gap-12">
       <div className="lg:w-3/4 max-auto">
         <div>
           <div className="mb-4 flex gap-4 text-[1.2rem]">

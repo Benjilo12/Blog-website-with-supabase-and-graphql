@@ -47,3 +47,50 @@ export const fetchLatestBlog = async () => {
 
   return data; // Return the latest blog post
 };
+
+// Generate a unique filename and upload the image
+export async function uploadImage(file) {
+  const fileName = `${Date.now()}_${file.name}`; // Ensure uniqueness
+
+  const { data, error } = await supabase.storage
+    .from("blog-images")
+    .upload(`blogs/${fileName}`, file, { upsert: true }); // ✅ Allow overwriting
+
+  if (error) {
+    console.error("Image upload error:", error);
+    throw new Error("Image upload failed");
+  }
+
+  // Get the public URL
+  const { publicUrl } = supabase.storage
+    .from("blog-images")
+    .getPublicUrl(`blogs/${fileName}`);
+
+  return publicUrl;
+}
+
+export async function createBlog(blogData) {
+  const { image, ...otherData } = blogData;
+
+  let imageUrl = null;
+  if (image && image[0]) {
+    try {
+      imageUrl = await uploadImage(image[0]);
+    } catch (err) {
+      console.error("Image upload failed:", err);
+      throw err;
+    }
+  }
+
+  const { data, error } = await supabase
+    .from("blogs")
+    .insert([{ ...otherData, image: imageUrl }])
+    .select();
+
+  if (error) {
+    console.error("Blog creation error:", error);
+    throw new Error(error.message); // Log the exact error message
+  }
+
+  return data;
+}
