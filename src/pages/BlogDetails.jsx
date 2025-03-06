@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import { MdAccessTime } from "react-icons/md";
 import { useSingleBlog } from "../services/useBlogId";
 import SideBar from "../component/SideBar";
+import Loader from "../component/Loader";
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -25,12 +26,7 @@ function BlogDetails() {
   const { id } = useParams();
   const { isLoading, blog, error } = useSingleBlog(id); // Fetch single blog
 
-  if (isLoading)
-    return (
-      <p className="text-center text-gray-500 max-w-full h-screen">
-        Loading...
-      </p>
-    );
+  if (isLoading) return <Loader />;
   if (error || !blog)
     return (
       <p className="text-center text-gray-500 max-w-full h-screen">
@@ -41,7 +37,7 @@ function BlogDetails() {
   const readingTime = calculateReadingTime(blog.content);
 
   return (
-    <div className="max-w-[100rem] mx-auto my-12 flex flex-col md:flex-row gap-12">
+    <div className="max-w-[100rem] mx-auto my-12 flex flex-col md:flex-row gap-12 ">
       <div className="lg:w-3/4 max-auto">
         <div>
           <div className="mb-4 flex gap-4 text-[1.2rem]">
@@ -51,7 +47,7 @@ function BlogDetails() {
             </p>
             <p className="flex gap-1">
               <MdAccessTime className="mt-1.5" />
-              Read time: {readingTime} min
+              <span className="font-bold"> Read time:</span> {readingTime} min
             </p>
           </div>
           <h3 className="text-3xl font-bold mb-5 text-blue-500 cursor-pointer">
@@ -62,7 +58,7 @@ function BlogDetails() {
             alt="Blog cover"
             className="w-full mx-auto rounded bg-cover h-auto mb-10"
           />
-          <p className="md:text-lg mx-auto md:m-0 text-base tracking-wide leading-8 text-black mb-6">
+          <p className="md:text-lg mx-auto md:m-0 text-base tracking-wide leading-8 text-black mb-20">
             {blog.content}
           </p>
         </div>

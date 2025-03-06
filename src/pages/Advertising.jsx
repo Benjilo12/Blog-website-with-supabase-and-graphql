@@ -6,7 +6,7 @@ function Advertising() {
           Advertising
         </h2>
       </div>
-      <div className="m-auto h-auto mb-16">
+      <div className="m-auto max-w-6xl h-auto mb-16">
         <h1 className="text-center mt-8 mb-14 text-2xl font-bold">
           🌿 Discover the Wild at The Wild Blog 🌿
         </h1>

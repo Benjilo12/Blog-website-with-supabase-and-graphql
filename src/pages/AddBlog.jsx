@@ -23,7 +23,6 @@ function AddBlog() {
   function onSubmit(data) {
     // Attach the date to the data object
     data.created_at = selectedDate.toISOString(); // Attach the date
-    console.log(data);
 
     // Call mutate with the form data
     mutate(data);
@@ -55,7 +54,6 @@ function AddBlog() {
             className="w-2xl h-10 placeholder:text-gray-500 placeholder:ml-4 border-black-300 rounded shadow-sm focus:border-purple-400 focus:shadow-out text-gray-700 pl-2"
           />
         </div>
-
         {/* Content Field */}
         <div className="flex flex-col mt-7">
           <label
@@ -73,7 +71,6 @@ function AddBlog() {
             className="pl-2 text-gray-500 placeholder:font-bold"
           />
         </div>
-
         {/* Author Field */}
         <div className="flex flex-col mt-6">
           <label
@@ -90,7 +87,6 @@ function AddBlog() {
             className="w-1xl h-10 placeholder:text-gray-500 placeholder:ml-4 border-black-300 rounded shadow-sm focus:border-purple-400 focus:shadow-out text-gray-700 pl-2"
           />
         </div>
-
         {/* Category Select */}
         <div className="flex flex-col mt-6">
           <label
@@ -105,18 +101,16 @@ function AddBlog() {
             className="w-3xs"
           >
             <option value="">Select Category</option>
-            <option value="Tech">Tech</option>
-            <option value="Politics">Politics</option>
-            <option value="Sports">Sports</option>
-            <option value="Entertainment">Entertainment</option>
+            <option value="tech">Tech</option>
+            <option value="politics">Politics</option>
+            <option value="sports">Sports</option>
+            <option value="entertainment">Entertainment</option>
           </select>
         </div>
-
         {/* Datepicker for Date */}
         <div className="mt-15">
           <Datepicker selected={selectedDate} onChange={setSelectedDate} />
         </div>
-
         {/* Image Upload */}
         <div className="mt-10 flex flex-col">
           <label
@@ -133,7 +127,6 @@ function AddBlog() {
             className="ml-20"
           />
         </div>
-
         {/* Submit Button */}
         <button
           type="submit"

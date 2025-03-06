@@ -50,21 +50,25 @@ export const fetchLatestBlog = async () => {
 
 // Generate a unique filename and upload the image
 export async function uploadImage(file) {
-  const fileName = `${Date.now()}_${file.name}`; // Ensure uniqueness
+  const fileName = `${Date.now()}_${file.name}`;
 
   const { data, error } = await supabase.storage
     .from("blog-images")
-    .upload(`blogs/${fileName}`, file, { upsert: true }); // ✅ Allow overwriting
+    .upload(`blogs/${fileName}`, file, { upsert: true });
 
   if (error) {
     console.error("Image upload error:", error);
     throw new Error("Image upload failed");
   }
 
-  // Get the public URL
+  // Corrected way to get the public URL
   const { publicUrl } = supabase.storage
     .from("blog-images")
     .getPublicUrl(`blogs/${fileName}`);
+
+  if (!publicUrl) {
+    throw new Error("Failed to retrieve the public URL for the image");
+  }
 
   return publicUrl;
 }
@@ -82,13 +86,23 @@ export async function createBlog(blogData) {
     }
   }
 
+  // Make sure the blog title or id is unique
+  const { data: existingBlog, error: checkError } = await supabase
+    .from("blogs")
+    .select("*")
+    .eq("title", otherData.title)
+    .single(); // Check if a blog with the same title exists
+
+  if (existingBlog) {
+    throw new Error("A blog with this title already exists");
+  }
+
   const { data, error } = await supabase
     .from("blogs")
     .insert([{ ...otherData, image: imageUrl }])
     .select();
 
   if (error) {
-    console.error("Blog creation error:", error);
     throw new Error(error.message); // Log the exact error message
   }
 

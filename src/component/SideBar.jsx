@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { useLatestBlog } from "../services/useLatestBlog";
+import Loader from "./Loader";
 
 function SideBar() {
   const { isPending, error, latestblogs } = useLatestBlog();
@@ -9,7 +10,7 @@ function SideBar() {
     return <p className="text-center text-gray-500">No items found</p>;
   }
 
-  if (isPending) return <p>Loading...</p>;
+  if (isPending) return <Loader />;
   if (error) return <p>Error: {error.message}</p>;
 
   return (

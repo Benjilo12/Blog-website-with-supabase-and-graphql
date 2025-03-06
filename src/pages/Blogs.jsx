@@ -4,6 +4,7 @@ import Filter from "../component/Filter";
 import { useBlog } from "../services/useBlog";
 import SideBar from "../component/SideBar";
 import Pagination, { PAGE_SIZE } from "../component/Pagination";
+import Loader from "../component/Loader";
 
 function Blogs() {
   const [searchParams] = useSearchParams();
@@ -11,12 +12,7 @@ function Blogs() {
 
   const { isPending, blogs, error, count } = useBlog(page, PAGE_SIZE); // Pass the page to useBlog
 
-  if (isPending)
-    return (
-      <h1 className="flex justify-center items-center h-screen">
-        isloading....
-      </h1>
-    );
+  if (isPending) return <Loader />;
 
   const filterValue = searchParams.get("category") || "all";
 

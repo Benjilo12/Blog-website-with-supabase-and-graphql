@@ -5,9 +5,11 @@ import { FaWhatsapp } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
+import CustomModal from "./CustomModal";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(true);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -62,9 +64,15 @@ function Navbar() {
           <a href="/" className="text-green-600">
             <FaWhatsapp />
           </a>
-          <button className="bg-orange-500 px-6 py-2 font-medium rounded cursor-pointer hover:bg-orange-200 transition-all duration-200 ease-in">
+          <button
+            onClick={() => setOpenModal(true)}
+            className="bg-orange-500 px-6 py-2 font-medium rounded cursor-pointer hover:bg-orange-200 transition-all duration-200 ease-in"
+          >
             Subscribe
           </button>
+        </div>
+        <div>
+          <CustomModal openModal={openModal} setOpenModal={setOpenModal} />
         </div>
         {/* 
         mobile menu btn, display mobile screen */}

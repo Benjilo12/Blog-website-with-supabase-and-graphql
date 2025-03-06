@@ -4,7 +4,11 @@ import { MdAccessTime } from "react-icons/md";
 
 function BlogCard({ blogs }) {
   if (!blogs || blogs.length === 0) {
-    return <p className="text-center text-gray-500">No items found</p>;
+    return (
+      <p className="max-w-7xl   flex justify-between items-center text-center text-gray-500">
+        No items found
+      </p>
+    );
   }
 
   const formatDate = (dateString) => {
@@ -21,7 +25,7 @@ function BlogCard({ blogs }) {
       {blogs.map((blog) => (
         <Link
           key={blog.id}
-          className="p-3 shadow-lg rounded cursor-pointer"
+          className="p-3  shadow-lg rounded cursor-pointer"
           to={`/blog/${blog.id}`}
         >
           <div>

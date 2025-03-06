@@ -6,7 +6,7 @@ function PrivacyPolicy() {
           Privacy
         </h2>
       </div>
-      <div className="container  mt-7 m-auto ">
+      <div className="container max-w-6xl  mt-7 m-auto ">
         <h1 className="text-center mb-15 text-2xl font-bold">
           Privacy Policy for Wild Blog
         </h1>
