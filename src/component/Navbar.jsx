@@ -14,6 +14,7 @@ function Navbar() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
   const navItems = [
     { path: "/", link: "Home" },
     { path: "/about", link: "About" },

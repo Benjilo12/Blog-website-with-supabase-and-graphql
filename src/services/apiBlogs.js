@@ -1,4 +1,5 @@
 import supabase from "./supabase";
+import { v4 as uuidv4 } from "uuid";
 
 export async function getBlogs(page = 1, pageSize = 9) {
   const start = (page - 1) * pageSize;
@@ -50,60 +51,59 @@ export const fetchLatestBlog = async () => {
 
 // Generate a unique filename and upload the image
 export async function uploadImage(file) {
-  const fileName = `${Date.now()}_${file.name}`;
+  const uniqueId = uuidv4(); // Generate a unique ID
+  const fileName = `${uniqueId}_${file.name}`;
 
   const { data, error } = await supabase.storage
     .from("blog-images")
     .upload(`blogs/${fileName}`, file, { upsert: true });
 
   if (error) {
-    console.error("Image upload error:", error);
     throw new Error("Image upload failed");
   }
 
   // Corrected way to get the public URL
-  const { publicUrl } = supabase.storage
-    .from("blog-images")
-    .getPublicUrl(`blogs/${fileName}`);
+  const {
+    data: { publicUrl },
+  } = supabase.storage.from("blog-images").getPublicUrl(`blogs/${fileName}`);
 
-  if (!publicUrl) {
-    throw new Error("Failed to retrieve the public URL for the image");
-  }
-
-  return publicUrl;
+  return { publicUrl, uniqueId }; // Return both public URL and ID
 }
 
 export async function createBlog(blogData) {
   const { image, ...otherData } = blogData;
 
   let imageUrl = null;
-  if (image && image[0]) {
+  if (image && image instanceof File) {
+    // Ensure it's a file object
     try {
-      imageUrl = await uploadImage(image[0]);
+      const { publicUrl } = await uploadImage(image);
+      imageUrl = publicUrl;
     } catch (err) {
       console.error("Image upload failed:", err);
       throw err;
     }
   }
 
-  // Make sure the blog title or id is unique
-  const { data: existingBlog, error: checkError } = await supabase
+  // Ensure uniqueness check
+  const { data: existingBlog } = await supabase
     .from("blogs")
-    .select("*")
+    .select("id")
     .eq("title", otherData.title)
-    .single(); // Check if a blog with the same title exists
+    .single();
 
   if (existingBlog) {
     throw new Error("A blog with this title already exists");
   }
 
+  // Insert blog data with image URL
   const { data, error } = await supabase
     .from("blogs")
     .insert([{ ...otherData, image: imageUrl }])
     .select();
 
   if (error) {
-    throw new Error(error.message); // Log the exact error message
+    throw new Error(error.message);
   }
 
   return data;
